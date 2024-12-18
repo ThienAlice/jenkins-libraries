@@ -19,7 +19,7 @@ def typeService(String service) {
     if (service == 'feature/order-service' || service == 'feature/store-front') {
         typeBuild = "js"
     } else if (service == 'feature/product-service') {
-        typeBuild = "js"
+        typeBuild = "go"
     } else {
         error "No build strategy defined for branch: ${service}"
     }
