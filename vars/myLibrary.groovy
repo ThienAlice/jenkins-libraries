@@ -14,4 +14,15 @@ def snykSecurityCheck(String serviceDir, String projectName) {
                       targetFile: 'package.json'
     }
 }
+def typeService(String service) {
+    def typeBuild
+    if (service == 'feature/order-service' || service == 'feature/store-front') {
+        typeBuild = "js"
+    } else if (service == 'feature/product-service') {
+        typeBuild = "js"
+    } else {
+        error "No build strategy defined for branch: ${service}"
+    }
+    return typeBuild
+}
 
