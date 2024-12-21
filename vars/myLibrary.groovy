@@ -14,6 +14,10 @@ def snykSecurityCheck(String serviceDir, String projectName) {
                       targetFile: 'package.json'
     }
 }
+def detectChange (String sourchBranch, String targetBranch) {
+    def change = sh(script: "git diff --name-only ${sourchBranch} ${targetBranch}", returnStdout: true).trim()
+    return change
+}
 def typeService(String service) {
     def typeBuild
     if (service == 'feature/order-service' || service == 'feature/store-front') {
