@@ -40,9 +40,9 @@ def runTrivyImageScan(String imageName, String reportName) {
 // DAST Scan
 def runDastScan(String domain, String reportPath) {
     echo "Running DAST scan on ${domain}"
-    sh 'mkdir -p ${reportPath}'
+    sh "mkdir -p ${reportPath}"
     sh """docker run --rm -v ${reportPath}:/tmp/ thien0810/arachni:v1.4-0.5.10 bin/arachni --output-verbose --scope-include-subdomains ${domain} --report-save-path=/tmp/microservice.afr"""
     sh """docker run --rm -v ${reportPath}:/tmp/ thien0810/arachni:v1.4-0.5.10 bin/arachni_reporter /tmp/microservice.afr --reporter=html:outfile=/tmp/microservice.html.zip"""
-    sh 'unzip ${reportPath}/microservice.html.zip -d ${reportPath} && rm -rf ${reportPath}/*.zip ${reportPath}/*.afr'
+    sh "unzip ${reportPath}/microservice.html.zip -d ${reportPath} && rm -rf ${reportPath}/*.zip ${reportPath}/*.afr"
     archiveArtifacts artifacts: "${reportPath}/**/*", allowEmptyArchive: true
 }
