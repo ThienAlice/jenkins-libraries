@@ -47,3 +47,39 @@ def runDastScan(String domain, String reportPath) {
     sh 'cd dast-report && unzip microservice.html.zip && rm -rf *.zip *.afr '
     archiveArtifacts artifacts: "dast-report/**/*", allowEmptyArchive: true
 }
+
+
+
+
+def call(Map params = [:]) {
+    def host = params.host ?: error("Missing parameter: host")
+    def credentialsId = params.credentialsId ?: 'SSH_No2'
+    def name = params.name ?: host
+
+    withCredentials([sshUserPrivateKey(
+        credentialsId: credentialsId,
+        keyFileVariable: 'SSH_KEY',
+        usernameVariable: 'SSH_USER',
+        passphraseVariable: 'SSH_PASSPHRASE'
+    )]) {
+        def remote = [
+            host: host,
+            name: name,
+            user: SSH_USER,
+            passphrase: SSH_PASSPHRASE,
+            identityFile: SSH_KEY,
+            allowAnyHosts: true
+        ]
+        try {
+            sshCommand remote: remote, command: """
+                cd /opt/scripts/
+                ./check_status.sh > result.txt
+            """
+            sshGet remote: remote, from: "/opt/scripts/result.txt", into: "/tmp/${env.JOB_NAME}-result.txt", override: true
+            def output = readFile("/tmp/${env.JOB_NAME}-result.txt").trim()
+            currentBuild.description = "Status:\n${output}"
+        } catch (e) {
+            error("❌ System check failed: Disk full or Tomcat inactive. Pipeline stopped.\n${e.message}")
+        }
+    }
+}
