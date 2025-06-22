@@ -22,7 +22,7 @@ def checkStatusSystem(String credential, Boolean isInternal, String internalServ
                 passphraseVariable: 'SSH_PASSPHRASE'
             )]) {
                 def remote = [
-                    host: "${TOMCAT_HOST}",
+                    host: internalServer,
                     name: 'remote-host',
                     user: SSH_USER,
                     passphrase: SSH_PASSPHRASE,
