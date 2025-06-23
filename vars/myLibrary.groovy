@@ -35,14 +35,14 @@ def checkStatusSystem(String credential, Boolean isInternal, String internalServ
                     ./check_status.sh > result.txt
                 """
 
-                def localResultPath = "/tmp/${env.JOB_NAME}-result.txt"
-                sshGet remote: remote, from: "${remoteScriptPath}/result.txt", into: localResultPath, override: true
-                rawOutput = readFile(localResultPath)
+                // def localResultPath = "/tmp/${env.JOB_NAME}-result.txt"
+                // sshGet remote: remote, from: "${remoteScriptPath}/result.txt", into: localResultPath, override: true
+                // rawOutput = readFile(localResultPath)
             }
         }
-        def output = rawOutput.trim()
-        currentBuild.description = "Status:\n${output}"
-        echo "✅ Script output:\n${output}"
+        // def output = rawOutput.trim()
+        // currentBuild.description = "Status:\n${output}"
+        // echo "✅ Script output:\n${output}"
 
     } catch (Exception e) {
         echo "❌ Error during system check: ${e.message}"
