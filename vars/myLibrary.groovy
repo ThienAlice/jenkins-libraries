@@ -41,9 +41,9 @@ def checkStatusSystem(String credential, Boolean isInternal, String internalServ
                 // rawOutput = readFile(localResultPath)
             }
         }
-        // def output = rawOutput.trim()
-        // currentBuild.description = "Status:\n${output}"
-        // echo "✅ Script output:\n${output}"
+        def output = rawOutput.trim()
+        currentBuild.description = "Status:\n${output}"
+        echo "✅ Script output:\n${output}"
 
     } catch (Exception e) {
         echo "❌ Error during system check: ${e.message}"
