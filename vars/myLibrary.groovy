@@ -33,10 +33,11 @@ def checkStatusSystem(String credential, Boolean isInternal, String internalServ
                 sshCommand remote: remote, command: """
                     cd ${remoteScriptPath}
                     ./check_status.sh > result.txt
+                    cat result.txt
                 """
 
-                // def localResultPath = "/tmp/${env.JOB_NAME}-result.txt"
-                // sshGet remote: remote, from: "${remoteScriptPath}/result.txt", into: localResultPath, override: true
+                def localResultPath = "/tmp/${env.JOB_NAME}-result.txt"
+                sshGet remote: remote, from: "${remoteScriptPath}/result.txt", into: localResultPath, override: true
                 // rawOutput = readFile(localResultPath)
             }
         }
