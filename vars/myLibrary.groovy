@@ -23,7 +23,7 @@ def checkStatusSystem(String credential, Boolean isInternal, String internalServ
             )]) {
                 def remote = [
                     host: internalServer,
-                    name: 'remote-host',
+                    name: 'ip-172-31-27-128.ap-northeast-1.compute.internal',
                     user: SSH_USER,
                     passphrase: SSH_PASSPHRASE,
                     identityFile: SSH_KEY,
