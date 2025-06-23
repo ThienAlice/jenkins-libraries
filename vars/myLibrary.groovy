@@ -38,7 +38,7 @@ def checkStatusSystem(String credential, Boolean isInternal, String internalServ
 
                 def localResultPath = "${env.WORKSPACE}/result.txt"
                 sshGet remote: remote, from: "${remoteScriptPath}/result.txt", into: localResultPath, override: true
-                // rawOutput = readFile(localResultPath)
+                rawOutput = readFile(localResultPath)
             }
         }
         def output = rawOutput.trim()
