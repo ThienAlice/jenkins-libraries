@@ -1,4 +1,4 @@
-def checkStatusSystem(String credential, Boolean isInternal, String internalServer, String remoteScriptPath = "/home/itsj/work/thien/script") {
+def checkStatusSystem(String credential, Boolean isInternal, String internalServer, String remoteScriptPath = "/opt/scripts") {
     try {
         def rawOutput = "" 
         
